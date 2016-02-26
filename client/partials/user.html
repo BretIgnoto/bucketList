@@ -1,0 +1,4 @@
+<div ng-controller='UserListController'>
+	<strong>Before I die I want to:</strong>
+	<p ng-repeat='item in userList.list'><input type='checkbox' ng-disabled='currentUser.name !== item.user && currentUser.name !==userList.name' ng-checked='item.checked % 2' ng-click='check(userList._id, item)'>{{item.user}} | {{item.title}} - {{item.description}} - {{item.created | date}}</p>
+</div>
