@@ -1,0 +1,9 @@
+{
+  "name": "beltII",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "express": "~4.10.0",
+    "mongoose": "^4.1.1"
+  }
+}

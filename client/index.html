@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="belt">
+<head>
+  <title>Black Belt</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+  <script>
+  var belt = angular.module('belt', ['ngRoute']);
+  blackBelt.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl: "/partials/login.html"
+      })
+      .when("/home", {
+        templateUrl: "/partials/home.html"
+      })
+      .when('/new_question', {
+        templateUrl: "/partials/new_question.html"
+      })
+      .when('/question/:id', {
+        templateUrl: "/partials/question.html"
+      })
+      .when('/question/:id/new_answer', {
+        templateUrl: "/partials/answer.html"
+      })
+      .otherwise('/')
+  })
+  </script>
+  <script src="/js/users.js"></script>
+</head>
+<body>
+  <div>
+    <a href="#/">Home</a> | <a href="#/new_question">Add a Question</a> | <a href="." onclick="window.location.reload(true);">Logout</a>
+    <div ng-view>
+    </div>
+  </div>
+</body>
+</html>
