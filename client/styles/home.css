@@ -1,0 +1,40 @@
+#wrapper{
+	width: 1080px;
+	margin-left: auto;
+    margin-right: auto;
+    /*background-color: rgb(220,220,220);*/
+    min-height: 800px;
+}
+#items{
+	width: 700px;
+	display: inline-block;
+	vertical-align: top;
+}
+#profile{
+	margin-top: 0px;
+}
+#users{
+	width: 300px;
+	display: inline-block;
+	vertical-align: top;
+}
+	#users p{
+		margin: 0px;
+		margin-bottom: 2px;
+	}
+	#userList{
+		margin-top: 5px;
+		padding-left: 5px;
+		height: 159px;
+		width: 164px;
+		overflow-y: scroll;
+		border: 2px solid gray;
+		background-color: rgb(250,250,250);
+	}
+		#userList a{
+			color: blue;
+			text-decoration: none;
+		}
+#newitem{
+	margin-top: 30px;
+}

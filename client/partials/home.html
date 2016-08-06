@@ -1,15 +1,27 @@
-<div ng-controller='BListController'>
-	<p>Welcome, {{currentUser.name}}!</p>
-	<form name='listVal'>
-		<input required ng-minLength='5' type='text' ng-model='new_list.title' placeholder='Title'>
-		<input required ng-minLength='10' type='text' ng-model='new_list.description' placeholder ='Description'>
-		<select ng-model='new_list.tag'>
-			<option ng-repeat='user in users' ng-if='user.name!==currentUser.name' value='{{user._id}}'>{{user.name}}</option>
-		</select>
-		<input type='submit' ng-disabled='listVal.$invalid' value='Add to List' ng-click='newList(new_list)'>
-	</form>
-	<strong>Before I die I want to:</strong>
-	<p ng-repeat='item in bList.list'><input type='checkbox' ng-click='check(item)' ng-checked='item.checked % 2'>{{item.user}} | {{item.title}} - {{item.description}} - {{item.created | date}}</p>
-	<strong>List of other users (Click to view profile):</strong>
-	<li ng-repeat='user in users'><a  href="#/user/{{user._id}}">{{user.name}}</a></li>
+<div id="wrapper" ng-controller='BListController'>
+	<h3>Welcome, {{currentUser.name}}!</h3>
+	<div id="items">
+		<p id="profile"><a href="#/user/{{currentUser._id}}">My Profile</a></p>
+		<strong>Before I die I want to:</strong>
+		<p ng-repeat='item in bList'><input type='checkbox' ng-click='check(item)' ng-checked='item.checked'>{{item.author.name}} | {{item.title}} - {{item.description}} - {{item.created_at | date}}</p>
+	</div>
+	<div id="users">
+		<p><strong>List of users</strong> (Click to view profile):</p>
+		<input type="text" ng-model="filter_user" placeholder="Search">
+		<div id='userList'>
+			<p ng-repeat="user in users | filter: filter_user  | orderBy: 'name'" ng-if='user.name!==currentUser.name'><a  href="#/user/{{user._id}}">{{user.name}}</a></p>
+		</div>
+	</div>
+	<div id="newitem">
+		<strong>Add new item:</strong>
+		<form name='listVal'>
+			<input required ng-minLength='5' type='text' ng-model='new_list.title' placeholder='Title'>
+			<input required ng-minLength='10' type='text' ng-model='new_list.description' placeholder ='Description'>
+			<select ng-model='new_list.tagged_user'>
+				<option selected value=nil></option> 
+				<option ng-repeat='user in users' ng-if='user.name!==currentUser.name' value='{{user._id}}'>{{user.name}}</option>
+			</select>
+			<input type='submit' ng-disabled='listVal.$invalid' value='Add to List' ng-click='newList(new_list)'>
+		</form>
+	</div>
 </div>

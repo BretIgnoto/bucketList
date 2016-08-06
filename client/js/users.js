@@ -10,9 +10,6 @@ belt.factory("UserFactory", function($http) {
         callback(currentUser);                       
         })
     };
-    // factory.show = function(id, callback) {
-    //     $http.get('/user/' + id).then(callback);
-    // }
     factory.index = function(callback) {
         $http.get('/users').then(function(response) {
             callback(response.data);
@@ -20,9 +17,6 @@ belt.factory("UserFactory", function($http) {
     }
     factory.show = function(id, callback) {
         $http.get('user/' + id).then(callback);
-    }
-    factory.check = function(uid, lid, callback) {
-        $http.put('/list/' + uid, lid).then(callback);
     }
     return factory;
 });

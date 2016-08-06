@@ -2,16 +2,15 @@ belt.factory("BListFactory", function($http) {
     var factory = {};
     factory.create = function(list, callback) {
         console.log(list);
-        if(list.tag) {
-            console.log(list.tag);
-            $http.post('/list/' + list.tag, list);
-        }
-        $http.post('/list/' +  list.currentUser._id, list).then(callback);
+        $http.post('/list', list).then(callback);
     }
-    factory.index = function(currentUser, callback) {
-        $http.get('/list/' + currentUser._id).then(function(response) {
+    factory.index = function(user_id, callback) {
+        $http.get('/list/' + user_id).then(function(response) {
             callback(response.data);
         })
+    }
+    factory.check = function(item_id, callback) {
+        $http.patch('/list/' + item_id).then(callback)
     }
     return factory;
 });
@@ -26,37 +25,49 @@ belt.controller('BListController', function($scope, UserFactory, BListFactory, $
         })
     }
     function getList() {
-        BListFactory.index($scope.currentUser, function(data) {
+        BListFactory.index($scope.currentUser._id, function(data) {
             $scope.bList = data;
         })
     }
     getList();
     getUsers();
     $scope.newList = function(list) {
-        list.user = $scope.currentUser.name;
-        list.currentUser = $scope.currentUser;
+        list.author = $scope.currentUser;
         BListFactory.create(list, function() {
             $scope.new_list = {};
         })
         getUsers();
         getList();
     }
-    $scope.check = function(lid) {
-        UserFactory.check($scope.currentUser._id, lid, getList)
+    $scope.check = function(item) {
+        BListFactory.check(item._id, getList);
     }
 });
-belt.controller('UserListController', function($scope, UserFactory, BListFactory, $location, $routeParams) {
+belt.controller('UserListController', function($scope, UserFactory, CommentFactory, BListFactory, $location, $routeParams) {
     $scope.currentUser = UserFactory.getCurrentUser();
     if(!$scope.currentUser){
         $location.path('/');
     }
     function show() {
-        UserFactory.show($routeParams.id, function(result) {
-            $scope.userList = result.data;
+        BListFactory.index($routeParams.id, function(result) {
+            $scope.userList = result;
         })
     }
+    function showUser(){
+        UserFactory.show($routeParams.id, function(res) {
+            $scope.user = res.data;
+        })
+    }
+    showUser();
     show();
-    $scope.check = function(uid, lid) {
-        UserFactory.check(uid, lid, show)
+    $scope.check = function(item) {
+        BListFactory.check(item._id, show);
+    }
+    $scope.newComment = function(comment, item) {
+        comment.user = $scope.currentUser;
+        CommentFactory.create(comment, item, show)
+    }
+    $scope.like = function(item, comment) {
+        CommentFactory.like(comment, item._id, show)
     }
 })

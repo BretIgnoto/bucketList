@@ -1,0 +1,28 @@
+.list_items {
+	padding: 1px;
+	padding-bottom: 10px;
+	margin-top: 5px;
+	background-color: rgb(220,220,220);
+	border-radius: 10px;
+	width: 700px;
+}
+	.list_items p {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+.comments {
+	padding: 1px;
+	padding-left: 15px;
+	background-color: rgb(200,200,200);
+	border-radius: 10px;
+	margin-left: 50px;
+	width: 524px;
+	margin-bottom: 5px;
+}
+	.comments p {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+.new_comment {
+	margin-left: 355px;
+}

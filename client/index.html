@@ -2,29 +2,32 @@
 <html ng-app="belt">
 <head>
   <title>Black Belt</title>
+  <link rel="stylesheet" type="text/css" href="/styles/user.css">
+  <link rel="stylesheet" type="text/css" href="/styles/home.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
   <script>
-  var belt = angular.module('belt', ['ngRoute']);
-  belt.config(function($routeProvider) {
-    $routeProvider
-    .when("/", {
-        templateUrl: "/partials/login.html"
-      })
-      .when("/home", {
-        templateUrl: "/partials/home.html"
-      })
-      .when('/user/:id', {
-        templateUrl: "/partials/user.html"
-      })
-      .otherwise('/')
-  })
+    var belt = angular.module('belt', ['ngRoute']);
+    belt.config(function($routeProvider) {
+      $routeProvider
+      .when("/", {
+          templateUrl: "/partials/login.html"
+        })
+        .when("/home", {
+          templateUrl: "/partials/home.html"
+        })
+        .when('/user/:id', {
+          templateUrl: "/partials/user.html"
+        })
+        .otherwise('/')
+    })
   </script>
   <script src="/js/users.js"></script>
   <script src="/js/blist.js"></script>
+  <script src="/js/comment.js"></script>
 </head>
 <body>
-  <div>
+  <div id='wrapper'>
     <a href="#/home">Home</a> | <a href="." onclick="window.location.reload(true);">Logout</a>
     <div ng-view>
     </div>

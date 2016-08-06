@@ -1,7 +1,27 @@
-<div ng-controller='UserListController'>
-	<strong>Before I die I want to:</strong>
-	Done:
-	<p ng-if='item.checked % 2' ng-repeat='item in userList.list'><input type='checkbox' ng-disabled='currentUser.name !== item.user && currentUser.name !==userList.name' ng-checked='item.checked % 2' ng-click='check(userList._id, item)'>{{item.user}} | {{item.title}} - {{item.description}} - {{item.created | date}}</p>
-	Pending:
-	<p ng-if='(item.checked % 2==0)' ng-repeat='item in userList.list'><input type='checkbox' ng-disabled='currentUser.name !== item.user && currentUser.name !==userList.name' ng-checked='item.checked % 2' ng-click='check(userList._id, item)'>{{item.user}} | {{item.title}} - {{item.description}} - {{item.created | date}}</p>
+<div  id='wrapper' ng-controller='UserListController'>
+	<h2>{{user.name}}'s Bucket List</h2>
+	<h3>Done:</h3>
+	<div class="list_items" ng-repeat='item in userList' ng-if='item.checked'>
+		<p><input type='checkbox' ng-disabled='currentUser.name != item.author.name && currentUser.name !==item.tagged_user.name' ng-checked='item.checked' ng-click='check(item)'>{{item.author.name}} | {{item.title}} - {{item.description}} - {{item.created_at | date}}</p>
+		<div class="comments" ng-repeat="comment in item.comments | orderBy: '-likes'">
+			<p>{{comment.comment}}</p>
+			<p>{{comment.user.name}} | Likes: {{comment.likes}} <input type='submit' ng-click='like(item, comment)' value='Like'></p>
+		</div>
+		<form class="new_comment" name="addComment">
+			<input required ng-minLength='5' type='text' ng-model='new_comment.comment' placeholder='Add Comment'>
+			<input type="submit" ng-disabled='addComment.$invalid' ng-click='newComment(new_comment, item)'>
+		</form>
+	</div><br />
+	<h3>Pending:</h3>
+	<div class="list_items" ng-repeat='item in userList' ng-if='!item.checked'>
+		<p><input type='checkbox' ng-disabled='currentUser.name !== item.author.name && currentUser.name !==item.tagged_user.name' ng-checked='item.checked' ng-click='check(item)'>{{item.author.name}} | {{item.title}} - {{item.description}} - {{item.created_at | date}}</p>
+		<div class="comments" ng-repeat="comment in item.comments | orderBy: '-likes'">
+			<p>{{comment.comment}}</p>
+			<p>{{comment.user.name}} | Likes: {{comment.likes}} <input type='submit' ng-click='like(item, comment)' value='Like'></p>
+		</div>
+		<form class="new_comment" name="addComment">
+			<input required ng-minLength='5' type='text' ng-model='new_comment.comment' placeholder='Add Comment'>
+			<input type="submit" ng-disabled='addComment.$invalid' ng-click='newComment(new_comment, item)'>
+		</form>
+	</div>
 </div>
