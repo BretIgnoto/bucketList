@@ -1,7 +1,6 @@
 belt.factory("BListFactory", function($http) {
     var factory = {};
     factory.create = function(list, callback) {
-        console.log(list);
         $http.post('/list', list).then(callback);
     }
     factory.index = function(user_id, callback) {
@@ -42,6 +41,9 @@ belt.controller('BListController', function($scope, UserFactory, BListFactory, $
     $scope.check = function(item) {
         BListFactory.check(item._id, getList);
     }
+    $scope.removeUser = function(user) {
+        UserFactory.delete(user._id, getUsers);
+      }
 });
 belt.controller('UserListController', function($scope, UserFactory, CommentFactory, BListFactory, $location, $routeParams) {
     $scope.currentUser = UserFactory.getCurrentUser();
@@ -70,4 +72,10 @@ belt.controller('UserListController', function($scope, UserFactory, CommentFacto
     $scope.like = function(item, comment) {
         CommentFactory.like(comment, item._id, show)
     }
+    $scope.removeComment = function(comment, item) {
+        CommentFactory.destroy(comment._id, item._id, show)
+      }
+    $scope.removeItem = function(item) {
+        CommentFactory.delete(item._id, show)
+      }
 })

@@ -2,7 +2,6 @@
 	width: 1080px;
 	margin-left: auto;
     margin-right: auto;
-    /*background-color: rgb(220,220,220);*/
     min-height: 800px;
 }
 #items{
@@ -37,4 +36,15 @@
 		}
 #newitem{
 	margin-top: 30px;
+}
+#intro{
+	border: 2px solid red;
+	width: 540px;
+	margin-top: 50px;
+}
+#intro p{
+	margin: 5px;
+}
+#intro span {
+	font-size: 13px;
 }

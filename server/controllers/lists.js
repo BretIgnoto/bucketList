@@ -54,6 +54,22 @@ module.exports= (function() {
                     })
                 }
             })
+        },
+        destroy: function(req,res) {
+            List.update(
+                {_id: req.params.lid},
+                {$pull: { "comments" : { _id: req.params.cid } }},
+                function(err) {
+                    if(err) console.log(err);
+                    else res.json(true);
+                }
+            );
+        },
+        delete: function(req,res) {
+            List.remove({_id: req.params.id}, function(err, results) {
+                if(err) console.log(err);
+                else res.json(results);
+            })
         }
 	}
 })();

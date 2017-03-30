@@ -31,6 +31,12 @@ module.exports= (function() {
 				if(err) console.log(err);
 				else res.json(result);
 			})
+		},
+		delete: function(req,res) {
+			User.remove({_id: req.params.id}, function(err, results) {
+				if(err) console.log(err);
+			    else res.json(results);
+			})
 		}
 	}
 })();

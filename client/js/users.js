@@ -18,6 +18,11 @@ belt.factory("UserFactory", function($http) {
     factory.show = function(id, callback) {
         $http.get('user/' + id).then(callback);
     }
+    factory.delete = function(user, callback) {
+        $http.get('/remove/' + user).success(function(output) {
+          callback();
+        })
+    }
     return factory;
 });
 belt.controller('UsersController', function($scope, UserFactory, $location) {

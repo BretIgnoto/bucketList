@@ -4,12 +4,17 @@
 		<p id="profile"><a href="#/user/{{currentUser._id}}">My Profile</a></p>
 		<strong>Before I die I want to:</strong>
 		<p ng-repeat='item in bList'><input type='checkbox' ng-click='check(item)' ng-checked='item.checked'>{{item.author.name}} | {{item.title}} - {{item.description}} - {{item.created_at | date}}</p>
+		<div id="intro" ng-if="bList.length<1">
+			<p>To get started add the title and description of something to your bucket list below.</p>
+			<p>You can also tag someone else to do it with you.</p>
+			<p><span>(Titles must be at least five characters and descriptions must be 10.)</span></p>
+		</div>
 	</div>
 	<div id="users">
 		<p><strong>List of users</strong> (Click to view profile):</p>
 		<input type="text" ng-model="filter_user" placeholder="Search">
 		<div id='userList'>
-			<p ng-repeat="user in users | filter: filter_user  | orderBy: 'name'" ng-if='user.name!==currentUser.name'><a  href="#/user/{{user._id}}">{{user.name}}</a></p>
+			<p ng-repeat="user in users | filter: filter_user  | orderBy: 'name'" ng-if='user.name!==currentUser.name && user.name!=="admin"'><a  href="#/user/{{user._id}}">{{user.name}}</a> <a ng-if="currentUser.name=='admin'" ng-click='removeUser(user)'>Delete</a></p>
 		</div>
 	</div>
 	<div id="newitem">
@@ -18,7 +23,7 @@
 			<input required ng-minLength='5' type='text' ng-model='new_list.title' placeholder='Title'>
 			<input required ng-minLength='10' type='text' ng-model='new_list.description' placeholder ='Description'>
 			<select ng-model='new_list.tagged_user'>
-				<option selected value=nil></option> 
+				<option selected value=nil ></option> 
 				<option ng-repeat='user in users' ng-if='user.name!==currentUser.name' value='{{user._id}}'>{{user.name}}</option>
 			</select>
 			<input type='submit' ng-disabled='listVal.$invalid' value='Add to List' ng-click='newList(new_list)'>

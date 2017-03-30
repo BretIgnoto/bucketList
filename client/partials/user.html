@@ -3,9 +3,11 @@
 	<h3>Done:</h3>
 	<div class="list_items" ng-repeat='item in userList' ng-if='item.checked'>
 		<p><input type='checkbox' ng-disabled='currentUser.name != item.author.name && currentUser.name !==item.tagged_user.name' ng-checked='item.checked' ng-click='check(item)'>{{item.author.name}} | {{item.title}} - {{item.description}} - {{item.created_at | date}}</p>
+		<input ng-if="currentUser.name=='admin' || currentUser.name== item.author.name" type='submit' value='Delete' ng-click='removeItem(item)'>
 		<div class="comments" ng-repeat="comment in item.comments | orderBy: '-likes'">
 			<p>{{comment.comment}}</p>
 			<p>{{comment.user.name}} | Likes: {{comment.likes}} <input type='submit' ng-click='like(item, comment)' value='Like'></p>
+			<input ng-if="currentUser.name=='admin'" type='submit' value='Delete' ng-click='removeComment(comment, item)'>
 		</div>
 		<form class="new_comment" name="addComment">
 			<input required ng-minLength='5' type='text' ng-model='new_comment.comment' placeholder='Add Comment'>
@@ -15,9 +17,11 @@
 	<h3>Pending:</h3>
 	<div class="list_items" ng-repeat='item in userList' ng-if='!item.checked'>
 		<p><input type='checkbox' ng-disabled='currentUser.name !== item.author.name && currentUser.name !==item.tagged_user.name' ng-checked='item.checked' ng-click='check(item)'>{{item.author.name}} | {{item.title}} - {{item.description}} - {{item.created_at | date}}</p>
+		<input ng-if="currentUser.name=='admin' || currentUser.name== item.author.name" type='submit' value='Delete' ng-click='removeItem(item)'>
 		<div class="comments" ng-repeat="comment in item.comments | orderBy: '-likes'">
 			<p>{{comment.comment}}</p>
 			<p>{{comment.user.name}} | Likes: {{comment.likes}} <input type='submit' ng-click='like(item, comment)' value='Like'></p>
+			<input ng-if="currentUser.name=='admin'" type='submit' value='Delete' ng-click='removeComment(comment, item)'>
 		</div>
 		<form class="new_comment" name="addComment">
 			<input required ng-minLength='5' type='text' ng-model='new_comment.comment' placeholder='Add Comment'>

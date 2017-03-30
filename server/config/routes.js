@@ -25,4 +25,13 @@ module.exports = function(app) {
 	app.patch('/comment/:id', function(req,res) {
 		List.like(req,res);
 	})
+	app.get("/remove/comment/:id", function(req,res) {
+		List.delete(req,res);
+	});
+	app.get("/remove/:lid/:cid", function(req,res) {
+		List.destroy(req,res);
+	});	
+	app.get("/remove/:id", function(req,res) {
+		User.delete(req,res);
+	});
 }
